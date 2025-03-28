@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -36,6 +37,10 @@ class Animal(models.Model):
     animal_species = models.ForeignKey(AnimalSpecies, on_delete=models.DO_NOTHING, related_name='animal_species')
     animal_wool = models.ForeignKey(AnimalWool, on_delete=models.DO_NOTHING, related_name='animal_wool')
     nickname = models.CharField(max_length=150, blank=True, verbose_name='nickname')
+    date_registration = models.DateTimeField(
+        # default=timezone.now, verbose_name="Date of registration"
+        auto_now_add=True,
+    )
     is_vaccinated = models.BooleanField(default=False, verbose_name='is_vaccinated')
     is_tail = models.BooleanField(default=False, verbose_name='is_tail')
     date_of_birth = models.DateField(null=True, blank=True, verbose_name='birthday')
