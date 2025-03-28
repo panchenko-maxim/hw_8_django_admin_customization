@@ -28,7 +28,7 @@ class AnimalWool(models.Model):
 
 
     def __str__(self):
-        return f"{self.wool()}"
+        return f"{self.get_wool_display()}{f'-{self.color}' if self.color else ''}"
 
 
 class Animal(models.Model):
