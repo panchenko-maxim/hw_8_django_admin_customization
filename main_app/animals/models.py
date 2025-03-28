@@ -41,6 +41,8 @@ class Animal(models.Model):
     date_of_birth = models.DateField(null=True, blank=True, verbose_name='birthday')
     profile_of_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.nickname}({self.animal_species})"
 
 class AnimalAddress(models.Model):
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name='address')
@@ -48,3 +50,5 @@ class AnimalAddress(models.Model):
     street = models.CharField(max_length=50, verbose_name='street')
     number_of_house = models.CharField(max_length=10, verbose_name='number_of_house')
 
+    def __str__(self):
+        return f"{self.animal}({self.city}, {self.street}, {self.number_of_house})"

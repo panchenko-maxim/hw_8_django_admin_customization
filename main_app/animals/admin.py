@@ -10,6 +10,15 @@ class AnimalSpeciesAdmin(admin.ModelAdmin):
 class AnimalWoolAdmin(admin.ModelAdmin):
     fields = ['wool', 'color']
 
+@admin.register(AnimalAddress)
+class AnimalAddressAdmin(admin.ModelAdmin):
+    pass
+
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    fields = ['nickname', 'owner']
+    list_display = ['nickname', 'animal_species', 'is_vaccinated', 'owner__nickname']
+    list_filter = ['is_vaccinated', 'is_tail']
+    search_fields = ['nickname', 'owner__nickname']
+
+
+
