@@ -6,10 +6,29 @@ User = get_user_model()
 class AnimalSpecies(models.Model):
     species = models.CharField(max_length=100, blank=True, verbose_name='species')
 
+    def __str__(self):
+        return self.species
+
+class WoolLength:
+    WITHOUT = 1
+    SHORT = 2
+    MIDDLE = 3
+    LONG = 4
+
+    CHOICES = [
+        (WITHOUT, 'Without'),
+        (SHORT, 'Short'),
+        (MIDDLE, 'Middle'),
+        (LONG, 'Long'),
+    ]
 
 class AnimalWool(models.Model):
-    wool = models.BooleanField(default=False, verbose_name='wool')
-    color = models.CharField(max_length=50, verbose_name='color')
+    wool = models.IntegerField(choices=WoolLength.CHOICES, default=WoolLength.WITHOUT)
+    color = models.CharField(max_length=50, verbose_name='color', blank=True)
+
+
+    def __str__(self):
+        return f"{self.wool()}"
 
 
 class Animal(models.Model):
