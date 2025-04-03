@@ -1,0 +1,11 @@
+body {
+    background: #af4343;
+}
+
+.about_animal {
+    margin-bottom: 1%;
+}
+
+.animal_items {
+    list-style: none;
+}
