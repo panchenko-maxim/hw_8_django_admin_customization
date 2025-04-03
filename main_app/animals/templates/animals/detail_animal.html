@@ -1,0 +1,8 @@
+{% extends 'animals/base.html' %}
+{% block content %}
+    <h1>{{ extra_info }}</h1>
+	<h2>This is page about animal by name: "{{ animal.nickname }}"</h2>
+    <h3>Animal have the owner by name: {{ animal.owner.nickname }}</h3>
+    <h3>Next info about animal: wool - {{ animal.animal_wool }}, species - {{ animal.animal_species }}</h3>
+    <a href="{% url 'animal_delete' animal.id %}">Delete</a>
+{% endblock %}

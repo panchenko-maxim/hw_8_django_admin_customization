@@ -7,6 +7,7 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, nickname, password=None, **extra_fields):
         if not nickname:
             raise ValueError('Nickname field required')
+        extra_fields.setdefault("is_staff", False)
         user = self.model(nickname=nickname, **extra_fields)
         user.set_password(password)
         user.save()
@@ -15,6 +16,12 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, nickname, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+
         return self.create_user(nickname, password, **extra_fields)
 
 
@@ -29,15 +36,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'nickname'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email']
 
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'
-        # permissions = [
-        #     ("can_view_profiles", "Can watch profiles another users"),
-        #     ("can_edit_profiles", "Can edit profiles another users"),
-        # ]
+        permissions = [
+            ("can_view_profiles", "Can watch profiles another users"),
+            ("can_edit_profiles", "Can edit profiles another users"),
+        ]
 
     def __str__(self):
         return self.nickname

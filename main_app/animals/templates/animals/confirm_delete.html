@@ -1,0 +1,10 @@
+{% extends 'animals/base.html' %}
+{% block title %} Delete animal {% endblock %}
+{% block content %}
+    <h2>Delete "{{ animal.nickname }}"</h2>
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'animals_detail' animal.id %}">Back to detail</a>
+{% endblock %}

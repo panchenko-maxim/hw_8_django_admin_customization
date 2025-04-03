@@ -1,0 +1,20 @@
+{% extends 'animals/base.html' %}
+{% load custom_tags %}
+
+{% block content %}
+    <h1>Count: {{ object_count }} animals</h1>
+    <ol>
+    {% for animal in animals %}
+        <li>
+        <a href="{% url 'animals_detail' animal.id %}">Link on animal: {{ animal.nickname }}</a>
+            <ul class="about_animal">
+                {% for item in animal.items %}
+                    <li class="animal_items">{{ item|get_animal_info_by_key }}</li>
+                {% endfor %}
+
+            </ul>
+        </li>
+    {% endfor %}
+    </ol>
+
+{% endblock %}
