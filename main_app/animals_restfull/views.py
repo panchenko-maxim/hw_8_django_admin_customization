@@ -7,8 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from django_filters.rest_framework import DjangoFilterBackend
 
 from animals_restfull.authentication import CustomJWTAuthentication
-from animals_restfull.utils import generate_jwt_token, creat_token_for_user
-
+from animals_restfull.utils import generate_jwt_token
 from animals.models import Animal
 from animals_restfull.serializers import AnimalSerializer
 
@@ -26,21 +25,21 @@ class AnimalModelViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
-@api_view(["POST"])
-@permission_classes([])
-def login(request):
-    nickname = request.data.get("nickname")
-    password = request.data.get("password")
-
-    user = authenticate(username=nickname, password=password)
-    if user:
-        token = creat_token_for_user(user)
-        return Response({
-            "token": token.key,
-            "expires_at": token.expires_at,
-            "role": "staff" if any([user.is_staff, user.is_superuser]) else "member"
-        })
-    return Response({"error": "Wrong credentials"}, status=401)
+# @api_view(["POST"])
+# @permission_classes([])
+# def login(request):
+#     nickname = request.data.get("nickname")
+#     password = request.data.get("password")
+#
+#     user = authenticate(username=nickname, password=password)
+#     if user:
+#         token = creat_token_for_user(user)
+#         return Response({
+#             "token": token.key,
+#             "expires_at": token.expires_at,
+#             "role": "staff" if any([user.is_staff, user.is_superuser]) else "member"
+#         })
+#     return Response({"error": "Wrong credentials"}, status=401)
 
 @api_view(["POST"])
 @permission_classes([])
@@ -52,6 +51,6 @@ def login_jwt(request):
     if user:
         token = generate_jwt_token(user)
         return Response({
-            "access_key": token
+            "access_key": token,
         })
     return Response({"error": "Wrong credentials"}, status=401)
