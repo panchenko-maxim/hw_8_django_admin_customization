@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$^49-chp$2&u0!0nkv6rcmsldg+8-d*8+b_+pazv4hg%9h2c9)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'animals',
     'animals_restfull',
     'drf_yasg',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'NAME': 'django_db_hw8',
         'USER': 'simple_user',
         'PASSWORD': 'simple_user',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
